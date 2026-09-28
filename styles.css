@@ -1,0 +1,391 @@
+:root {
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #d1d5db;
+  --soft: #f8fafc;
+  --paper: #ffffff;
+  --accent: #2563eb;
+  --accent-dark: #1d4ed8;
+  --card-width: 134mm;
+  --message-font-size: 11pt;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  color: var(--ink);
+  background: #eef2f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.hero,
+.controls,
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero {
+  margin-bottom: 20px;
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.lead {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.primary-button,
+.secondary-button,
+.remove-entry {
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.primary-button {
+  min-width: 130px;
+  padding: 13px 20px;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 8px 24px rgb(37 99 235 / 20%);
+}
+
+.primary-button:hover {
+  background: var(--accent-dark);
+}
+
+.secondary-button {
+  padding: 9px 14px;
+  color: var(--accent-dark);
+  background: #e8efff;
+}
+
+.controls {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 16px;
+  margin-bottom: 22px;
+  background: #fff;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+}
+
+.control-group {
+  display: grid;
+  gap: 5px;
+}
+
+.control-group label,
+.editor-card label > span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #4b5563;
+}
+
+input,
+textarea,
+select {
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ink);
+}
+
+input,
+select {
+  min-height: 40px;
+  padding: 8px 10px;
+}
+
+textarea {
+  width: 100%;
+  padding: 11px 12px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 3px solid rgb(37 99 235 / 14%);
+  border-color: #60a5fa;
+}
+
+.privacy-note {
+  margin: 22px 0 0 auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(330px, 460px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.editor-panel,
+.preview-panel {
+  min-width: 0;
+}
+
+.editor-panel {
+  position: sticky;
+  top: 16px;
+}
+
+.entry-editors {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  max-height: calc(100vh - 260px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.editor-card {
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+}
+
+.editor-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.entry-number {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #4b5563;
+}
+
+.remove-entry {
+  padding: 5px 8px;
+  background: transparent;
+  color: #9f1239;
+  font-size: 0.76rem;
+}
+
+.editor-card label {
+  display: grid;
+  gap: 6px;
+}
+
+.editor-card label + label {
+  margin-top: 10px;
+}
+
+.paper-shell {
+  overflow: auto;
+  margin-top: 14px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #dce3eb;
+}
+
+.print-sheet {
+  width: 297mm;
+  min-height: 210mm;
+  margin: 0 auto;
+  padding: 7mm;
+  background: var(--paper);
+  box-shadow: 0 12px 36px rgb(15 23 42 / 18%);
+  display: grid;
+  grid-template-columns: repeat(2, var(--card-width));
+  grid-auto-rows: min-content;
+  justify-content: space-between;
+  align-content: start;
+  gap: 7mm;
+}
+
+.renraku-card {
+  width: var(--card-width);
+  min-height: 34mm;
+  padding: 5mm 5.5mm 5.5mm;
+  border: 0.3mm dashed #9ca3af;
+  background: #fff;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  overflow: hidden;
+}
+
+.renraku-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 8mm;
+  padding-bottom: 2.4mm;
+  margin-bottom: 3mm;
+  border-bottom: 0.3mm solid #bfc6ce;
+}
+
+.renraku-date {
+  font-size: 10.5pt;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.renraku-message {
+  min-height: 16mm;
+  font-size: var(--message-font-size);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.renraku-message:empty::before {
+  content: "ここに入力内容が表示されます";
+  color: #a0a7b0;
+}
+
+.count-badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #e8efff;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+footer {
+  padding: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 920px) {
+  .app {
+    padding: 18px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .editor-panel {
+    position: static;
+  }
+
+  .entry-editors {
+    max-height: none;
+  }
+
+  .preview-panel {
+    overflow: hidden;
+  }
+
+  .paper-shell {
+    padding: 10px;
+  }
+
+  .print-sheet {
+    transform-origin: top left;
+  }
+
+  .privacy-note {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  :root {
+    background: #fff;
+  }
+
+  body,
+  .app {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  .no-print,
+  footer {
+    display: none !important;
+  }
+
+  .workspace,
+  .preview-panel,
+  .paper-shell {
+    display: block;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow: visible;
+  }
+
+  .print-sheet {
+    width: 297mm;
+    min-height: 210mm;
+    margin: 0;
+    padding: 7mm;
+    box-shadow: none;
+    gap: 7mm;
+  }
+
+  .renraku-card {
+    box-shadow: none;
+  }
+}

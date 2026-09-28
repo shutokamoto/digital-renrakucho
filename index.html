@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <title>デジタル連絡帳</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero no-print">
+      <div>
+        <p class="eyebrow">DIGITAL RENRAKUCHO</p>
+        <h1>デジタル連絡帳</h1>
+        <p class="lead">入力した連絡を、連絡帳にそのまま貼れるサイズでまとめて印刷します。</p>
+      </div>
+      <button id="printButton" class="primary-button" type="button">印刷する</button>
+    </header>
+
+    <section class="controls no-print" aria-label="印刷設定">
+      <div class="control-group">
+        <label for="sharedDate">日付</label>
+        <input id="sharedDate" type="date" />
+      </div>
+      <div class="control-group">
+        <label for="cardWidth">貼付カード幅</label>
+        <select id="cardWidth">
+          <option value="130">130 mm</option>
+          <option value="134" selected>134 mm（おすすめ）</option>
+          <option value="138">138 mm</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="fontSize">文字サイズ</label>
+        <select id="fontSize">
+          <option value="small">小さめ</option>
+          <option value="medium" selected>標準</option>
+          <option value="large">大きめ</option>
+        </select>
+      </div>
+      <p class="privacy-note">入力内容はこのブラウザ内だけで扱い、保存しません。</p>
+    </section>
+
+    <div class="workspace">
+      <section class="editor-panel no-print" aria-label="連絡内容の入力">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">入力</p>
+            <h2>今日の連絡</h2>
+          </div>
+          <button id="addEntryButton" class="secondary-button" type="button">＋ 児童を追加</button>
+        </div>
+        <div id="entryEditors" class="entry-editors"></div>
+      </section>
+
+      <section class="preview-panel" aria-label="印刷プレビュー">
+        <div class="section-heading no-print">
+          <div>
+            <p class="section-kicker">プレビュー</p>
+            <h2>A4横・2列配置</h2>
+          </div>
+          <span id="cardCount" class="count-badge">1枚</span>
+        </div>
+        <div class="paper-shell">
+          <div id="printSheet" class="print-sheet"></div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="no-print">
+      <p>印刷時はブラウザの「倍率 100%」を推奨します。余白は「デフォルト」または「最小」にしてください。</p>
+    </footer>
+  </main>
+
+  <template id="editorTemplate">
+    <article class="editor-card">
+      <div class="editor-card-header">
+        <span class="entry-number"></span>
+        <button class="remove-entry" type="button" aria-label="この児童を削除">削除</button>
+      </div>
+      <label>
+        <span>今日の内容</span>
+        <textarea class="message" rows="6" placeholder="今日の学習や生活の様子、持ち物、明日の予定などを入力"></textarea>
+      </label>
+    </article>
+  </template>
+
+  <template id="printCardTemplate">
+    <article class="renraku-card">
+      <div class="renraku-header">
+        <time class="renraku-date"></time>
+      </div>
+      <div class="renraku-message"></div>
+    </article>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
