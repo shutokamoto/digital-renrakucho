@@ -20,6 +20,7 @@
 body {
   margin: 0;
   min-width: 320px;
+  scrollbar-gutter: stable;
 }
 
 button,
@@ -240,6 +241,7 @@ select:focus {
   min-height: 210mm;
   margin: 0 auto;
   padding: 7mm;
+  transform-origin: top left;
   background: var(--paper);
   box-shadow: 0 12px 36px rgb(15 23 42 / 18%);
   display: grid;
@@ -332,10 +334,6 @@ footer p {
 
   .paper-shell {
     padding: 10px;
-  }
-
-  .print-sheet {
-    transform-origin: top left;
   }
 
   .privacy-note {

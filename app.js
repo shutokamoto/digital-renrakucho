@@ -11,6 +11,7 @@ const cardCount = document.querySelector("#cardCount");
 
 let entries = [];
 let nextId = 1;
+let previewScale = 1;
 
 const fontSizes = {
   small: "10pt",
@@ -53,6 +54,16 @@ function updateEntry(id, field, value) {
   const entry = entries.find((item) => item.id === id);
   if (!entry) return;
   entry[field] = value;
+
+  if (field === "message") {
+    const message = printSheet.querySelector(
+      `.renraku-card[data-entry-id="${id}"] .renraku-message`
+    );
+    if (message) message.textContent = value.trim();
+    updatePreviewHeightCompensation();
+    return;
+  }
+
   renderPreview();
 }
 
@@ -90,13 +101,15 @@ function renderPreview() {
 
   entries.forEach((entry) => {
     const fragment = printCardTemplate.content.cloneNode(true);
+    const card = fragment.querySelector(".renraku-card");
+    card.dataset.entryId = entry.id;
     fragment.querySelector(".renraku-date").textContent = formatJapaneseDate(dateInput.value);
     fragment.querySelector(".renraku-message").textContent = entry.message.trim();
     printSheet.append(fragment);
   });
 
   cardCount.textContent = `${entries.length}枚`;
-  fitPreviewOnSmallScreens();
+  updatePreviewHeightCompensation();
 }
 
 function render() {
@@ -104,21 +117,26 @@ function render() {
   renderPreview();
 }
 
+function updatePreviewHeightCompensation() {
+  if (previewScale < 1) {
+    printSheet.style.marginBottom = `${-(printSheet.offsetHeight * (1 - previewScale))}px`;
+  } else {
+    printSheet.style.marginBottom = "";
+  }
+}
+
 function fitPreviewOnSmallScreens() {
   const shell = document.querySelector(".paper-shell");
   if (!shell || window.matchMedia("print").matches) return;
 
-  const sheetWidth = printSheet.getBoundingClientRect().width;
+  // The scale is based only on the intrinsic A4 sheet width. Input updates only
+  // refresh the height compensation so typing cannot move or resize the preview.
+  const sheetWidth = printSheet.offsetWidth;
   const available = Math.max(shell.clientWidth - 20, 1);
-  const scale = Math.min(1, available / sheetWidth);
+  previewScale = Math.min(1, available / sheetWidth);
 
-  if (scale < 1) {
-    printSheet.style.transform = `scale(${scale})`;
-    printSheet.style.marginBottom = `${-(printSheet.offsetHeight * (1 - scale))}px`;
-  } else {
-    printSheet.style.transform = "";
-    printSheet.style.marginBottom = "";
-  }
+  printSheet.style.transform = previewScale < 1 ? `scale(${previewScale})` : "";
+  updatePreviewHeightCompensation();
 }
 
 dateInput.value = todayISO();
@@ -138,3 +156,4 @@ window.addEventListener("beforeprint", () => {
 window.addEventListener("afterprint", fitPreviewOnSmallScreens);
 
 createEntry();
+fitPreviewOnSmallScreens();
