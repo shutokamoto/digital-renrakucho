@@ -5,6 +5,7 @@ const printCardTemplate = document.querySelector("#printCardTemplate");
 const dateInput = document.querySelector("#sharedDate");
 const widthSelect = document.querySelector("#cardWidth");
 const fontSizeSelect = document.querySelector("#fontSize");
+const frameStyleSelect = document.querySelector("#frameStyle");
 const addEntryButton = document.querySelector("#addEntryButton");
 const printButton = document.querySelector("#printButton");
 const cardCount = document.querySelector("#cardCount");
@@ -96,6 +97,7 @@ function renderPreview() {
     "--message-font-size",
     fontSizes[fontSizeSelect.value] ?? fontSizes.medium
   );
+  printSheet.dataset.frame = frameStyleSelect.value;
 
   entries.forEach((entry) => {
     const fragment = printCardTemplate.content.cloneNode(true);
@@ -120,6 +122,7 @@ dateInput.value = todayISO();
 dateInput.addEventListener("change", renderPreview);
 widthSelect.addEventListener("change", renderPreview);
 fontSizeSelect.addEventListener("change", renderPreview);
+frameStyleSelect.addEventListener("change", renderPreview);
 addEntryButton.addEventListener("click", createEntry);
 printButton.addEventListener("click", () => window.print());
 createEntry();

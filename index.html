@@ -42,6 +42,16 @@
           <option value="large">大きめ</option>
         </select>
       </div>
+      <div class="control-group">
+        <label for="frameStyle">飾り枠</label>
+        <select id="frameStyle">
+          <option value="dots" selected>やわらか点線</option>
+          <option value="solid">すっきり実線</option>
+          <option value="double">上品な二重線</option>
+          <option value="stitch">ステッチ</option>
+          <option value="corners">コーナー飾り</option>
+        </select>
+      </div>
       <p class="privacy-note">入力内容はこのブラウザ内だけで扱い、保存しません。</p>
     </section>
 
@@ -91,6 +101,10 @@
 
   <template id="printCardTemplate">
     <article class="renraku-card">
+      <span class="frame-corner frame-corner--tl" aria-hidden="true"></span>
+      <span class="frame-corner frame-corner--tr" aria-hidden="true"></span>
+      <span class="frame-corner frame-corner--bl" aria-hidden="true"></span>
+      <span class="frame-corner frame-corner--br" aria-hidden="true"></span>
       <div class="renraku-header">
         <time class="renraku-date"></time>
       </div>

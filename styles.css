@@ -252,14 +252,85 @@ select:focus {
 }
 
 .renraku-card {
+  position: relative;
   width: var(--card-width);
   min-height: 34mm;
   padding: 5mm 5.5mm 5.5mm;
-  border: 0.3mm dashed #9ca3af;
+  border: 0;
   background: #fff;
   break-inside: avoid;
   page-break-inside: avoid;
   overflow: hidden;
+}
+
+.print-sheet[data-frame="dots"] .renraku-card {
+  border: 0.35mm dotted #8f99a6;
+}
+
+.print-sheet[data-frame="solid"] .renraku-card {
+  border: 0.3mm solid #9ca3af;
+}
+
+.print-sheet[data-frame="double"] .renraku-card {
+  border: 0.8mm double #9ca3af;
+}
+
+.print-sheet[data-frame="stitch"] .renraku-card {
+  border: 0.4mm dashed #8b95a1;
+  border-radius: 2.2mm;
+}
+
+.print-sheet[data-frame="stitch"] .renraku-card::before {
+  content: "";
+  position: absolute;
+  inset: 1.8mm;
+  border: 0.2mm solid #d1d5db;
+  border-radius: 1.2mm;
+  pointer-events: none;
+}
+
+.frame-corner {
+  display: none;
+}
+
+.print-sheet[data-frame="corners"] .renraku-card {
+  border: 0.2mm solid #c4cad1;
+}
+
+.print-sheet[data-frame="corners"] .frame-corner {
+  display: block;
+  position: absolute;
+  width: 9mm;
+  height: 9mm;
+  pointer-events: none;
+}
+
+.print-sheet[data-frame="corners"] .frame-corner--tl {
+  top: 2.4mm;
+  left: 2.4mm;
+  border-top: 0.4mm solid #747f8d;
+  border-left: 0.4mm solid #747f8d;
+}
+
+.print-sheet[data-frame="corners"] .frame-corner--tr {
+  top: 2.4mm;
+  right: 2.4mm;
+  border-top: 0.4mm solid #747f8d;
+  border-right: 0.4mm solid #747f8d;
+}
+
+.print-sheet[data-frame="corners"] .frame-corner--bl {
+  bottom: 2.4mm;
+  left: 2.4mm;
+  border-bottom: 0.4mm solid #747f8d;
+  border-left: 0.4mm solid #747f8d;
+}
+
+.print-sheet[data-frame="corners"] .frame-corner--br {
+  right: 2.4mm;
+  bottom: 2.4mm;
+  border-right: 0.4mm solid #747f8d;
+  border-bottom: 0.4mm solid #747f8d;
 }
 
 .renraku-header {
