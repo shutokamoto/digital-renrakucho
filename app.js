@@ -11,7 +11,6 @@ const cardCount = document.querySelector("#cardCount");
 
 let entries = [];
 let nextId = 1;
-let previewScale = 1;
 
 const fontSizes = {
   small: "10pt",
@@ -60,7 +59,6 @@ function updateEntry(id, field, value) {
       `.renraku-card[data-entry-id="${id}"] .renraku-message`
     );
     if (message) message.textContent = value.trim();
-    updatePreviewHeightCompensation();
     return;
   }
 
@@ -109,7 +107,6 @@ function renderPreview() {
   });
 
   cardCount.textContent = `${entries.length}枚`;
-  updatePreviewHeightCompensation();
 }
 
 function render() {
@@ -117,27 +114,6 @@ function render() {
   renderPreview();
 }
 
-function updatePreviewHeightCompensation() {
-  if (previewScale < 1) {
-    printSheet.style.marginBottom = `${-(printSheet.offsetHeight * (1 - previewScale))}px`;
-  } else {
-    printSheet.style.marginBottom = "";
-  }
-}
-
-function fitPreviewOnSmallScreens() {
-  const shell = document.querySelector(".paper-shell");
-  if (!shell || window.matchMedia("print").matches) return;
-
-  // The scale is based only on the intrinsic A4 sheet width. Input updates only
-  // refresh the height compensation so typing cannot move or resize the preview.
-  const sheetWidth = printSheet.offsetWidth;
-  const available = Math.max(shell.clientWidth - 20, 1);
-  previewScale = Math.min(1, available / sheetWidth);
-
-  printSheet.style.transform = previewScale < 1 ? `scale(${previewScale})` : "";
-  updatePreviewHeightCompensation();
-}
 
 dateInput.value = todayISO();
 
@@ -146,14 +122,4 @@ widthSelect.addEventListener("change", renderPreview);
 fontSizeSelect.addEventListener("change", renderPreview);
 addEntryButton.addEventListener("click", createEntry);
 printButton.addEventListener("click", () => window.print());
-window.addEventListener("resize", fitPreviewOnSmallScreens);
-
-window.addEventListener("beforeprint", () => {
-  printSheet.style.transform = "";
-  printSheet.style.marginBottom = "";
-});
-
-window.addEventListener("afterprint", fitPreviewOnSmallScreens);
-
 createEntry();
-fitPreviewOnSmallScreens();
